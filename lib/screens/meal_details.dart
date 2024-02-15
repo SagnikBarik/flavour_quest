@@ -6,15 +6,25 @@ class MealDetailsScreen extends StatelessWidget {
   const MealDetailsScreen({
     super.key,
     required this.meal,
+    required this.onTogglefavourite,
   });
 
   final Meal meal;
+  final void Function(Meal meal) onTogglefavourite;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
+        actions: [
+          IconButton(
+            onPressed: (){
+              onTogglefavourite(meal);
+            },
+            icon: const Icon(Icons.favorite_rounded),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -52,7 +62,8 @@ class MealDetailsScreen extends StatelessWidget {
             const SizedBox(height: 14),
             for (final ingredient in meal.steps)
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 child: Text(
                   ingredient,
                   textAlign: TextAlign.center,
